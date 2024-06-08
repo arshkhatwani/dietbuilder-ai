@@ -1,4 +1,4 @@
-import { GoogleSignIn } from "@/components/google-sign-in";
+import { GoogleSignIn } from "@/components/GoogleSignIn";
 import { loginWithGoogle } from "./actions";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
