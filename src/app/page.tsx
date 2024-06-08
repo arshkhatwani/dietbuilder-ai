@@ -20,6 +20,10 @@ export default async function Home() {
         redirect("/login");
     }
 
+    if (error) {
+        redirect("/error");
+    }
+
     return (
         <div>
             <h1>Hello world</h1>
