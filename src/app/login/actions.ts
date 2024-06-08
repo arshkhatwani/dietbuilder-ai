@@ -12,6 +12,9 @@ export async function loginWithGoogle() {
         provider: "google",
         options: {
             redirectTo: "http://localhost:3000/auth/callback",
+            queryParams: {
+                prompt: "consent",
+            },
         },
     });
 
