@@ -1,4 +1,5 @@
 import LogoutBtn from "@/components/LogoutBtn";
+import { NavigationBar } from "@/components/NavigationBar";
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -26,9 +27,12 @@ export default async function Home() {
 
     return (
         <div>
-            <h1>Hello world</h1>
+            <NavigationBar
+                userName={data.user.user_metadata.full_name}
+                logoutUser={logoutUser}
+            />
 
-            <LogoutBtn onClick={logoutUser} />
+            <h1>some content</h1>
         </div>
     );
 }
