@@ -1,4 +1,4 @@
-import LogoutBtn from "@/components/LogoutBtn";
+import DietBuilder from "@/components/DietBuilder";
 import { NavigationBar } from "@/components/NavigationBar";
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
@@ -32,7 +32,7 @@ export default async function Home() {
                 logoutUser={logoutUser}
             />
 
-            <h1>some content</h1>
+            <DietBuilder />
         </div>
     );
 }
