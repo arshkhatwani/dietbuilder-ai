@@ -1,5 +1,3 @@
-"use client";
-
 import DietInput from "./DietInput";
 import DietOutput from "./DietOutput";
 import SavedDiets from "./SavedDiets";
