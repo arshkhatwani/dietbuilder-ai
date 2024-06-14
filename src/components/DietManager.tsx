@@ -1,12 +1,16 @@
-'use client'
+"use client";
 
-import DietInput from "./DietInput";
+import { generateDiet } from "@/app/diets/actions";
+import DietInput, { DietForm } from "./DietInput";
 import DietOutput from "./DietOutput";
 
 function DietManager() {
+    const dietSubmit = (data: DietForm) => {
+        console.log("rec data", data);
+    };
     return (
         <>
-            <DietInput />
+            <DietInput dietSubmit={dietSubmit} />
             <DietOutput />
         </>
     );

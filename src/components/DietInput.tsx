@@ -29,10 +29,14 @@ const ValidationSchema = z.object({
     dietType: z.enum(["vegetarian", "non-vegetarian"]).default("vegetarian"),
     mealCount: z.number(),
 });
-type FormValues = z.infer<typeof ValidationSchema>;
+export type DietForm = z.infer<typeof ValidationSchema>;
 
-export default function DietInput() {
-    const formik = useFormik<FormValues>({
+export default function DietInput({
+    dietSubmit,
+}: {
+    dietSubmit: (data: DietForm) => void;
+}) {
+    const formik = useFormik<DietForm>({
         initialValues: {
             calories: 0,
             protein: 0,
@@ -42,7 +46,7 @@ export default function DietInput() {
             mealCount: 1,
         },
         onSubmit: (values) => {
-            console.log(values);
+            dietSubmit(values);
         },
         validate: (values) => {
             try {
