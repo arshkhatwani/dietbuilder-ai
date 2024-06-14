@@ -84,8 +84,9 @@ export default function DietInput() {
                 </div>
             </div>
             <div className="flex justify-end gap-2">
-                <Button variant="outline">Regenerate</Button>
-                <Button>Save</Button>
+                {/* <Button variant="outline">Regenerate</Button>
+                <Button>Save</Button> */}
+                <Button>Submit</Button>
             </div>
         </div>
     );

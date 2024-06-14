@@ -1,5 +1,4 @@
-import DietInput from "./DietInput";
-import DietOutput from "./DietOutput";
+import DietManager from "./DietManager";
 import SavedDiets from "./SavedDiets";
 
 export default function DietBuilder() {
@@ -21,8 +20,7 @@ export default function DietBuilder() {
                                 </p>
                             </div>
 
-                            <DietInput />
-                            <DietOutput />
+                            <DietManager />
                         </div>
                     </div>
                 </section>
