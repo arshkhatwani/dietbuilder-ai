@@ -2,6 +2,15 @@ import { GoogleGenerativeAI, GenerativeModel } from "@google/generative-ai";
 import { GoogleGenAI } from "./GoogleGenAI";
 import { systemInstruction, generationConfig } from "./config";
 import { DietForm } from "@/components/DietInput";
+import { z } from "zod";
+
+const ResponseSchema = z
+    .object({
+        mealName: z.string(),
+        mealDetails: z.string(),
+    })
+    .array();
+export type DietResponse = z.infer<typeof ResponseSchema>;
 
 export class Gemini {
     private static instance: Gemini;
@@ -26,7 +35,8 @@ export class Gemini {
     public async generateDiet(data: DietForm) {
         const prompt = this.getPrompt(data);
         const response = await this.generateResponse(prompt);
-        console.log(response);
+        const result: DietResponse = this.parseResponse(response);
+        return result;
     }
 
     private getPrompt(data: DietForm) {
@@ -46,5 +56,16 @@ export class Gemini {
         });
         const result = await chatSession.sendMessage(prompt);
         return result.response.text();
+    }
+
+    private parseResponse(data: string) {
+        const regex = /```json(.*?)```/s;
+        const match = data.match(regex);
+        if (match) {
+            let result = JSON.parse(match[1]);
+            result = ResponseSchema.parse(result);
+            return result;
+        }
+        return "";
     }
 }
