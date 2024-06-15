@@ -1,7 +1,7 @@
 "use server";
 
 import { DietForm } from "@/components/DietInput";
-import { Gemini } from "@/lib/googleAI/Gemini";
+import { Gemini } from "@/lib/googleAI/gemini";
 
 export async function generateDiet(data: DietForm) {
     try {

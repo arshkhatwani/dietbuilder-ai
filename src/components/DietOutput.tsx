@@ -1,4 +1,4 @@
-import { DietResponse } from "@/lib/googleAI/Gemini";
+import { DietResponse } from "@/lib/googleAI/gemini";
 import { DietForm } from "./DietInput";
 
 export default function DietOutput({

@@ -1,5 +1,5 @@
 import { GoogleGenerativeAI, GenerativeModel } from "@google/generative-ai";
-import { GoogleGenAI } from "./GoogleGenAI";
+import { GoogleGenAI } from "./googleGenAI";
 import { systemInstruction, generationConfig } from "./config";
 import { DietForm } from "@/components/DietInput";
 import { z } from "zod";

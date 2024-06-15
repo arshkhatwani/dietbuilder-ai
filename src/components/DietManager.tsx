@@ -1,7 +1,7 @@
 "use client";
 
 import { generateDiet } from "@/app/diets/actions";
-import { DietResponse } from "@/lib/googleAI/Gemini";
+import { DietResponse } from "@/lib/googleAI/gemini";
 import { useState } from "react";
 import DietInput, { DietForm } from "./DietInput";
 import DietOutput from "./DietOutput";
