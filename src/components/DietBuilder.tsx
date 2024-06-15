@@ -15,7 +15,7 @@ export default function DietBuilder() {
                                     Personalized Diet Plan
                                 </h2>
                                 <p className="text-gray-500 dark:text-gray-400">
-                                    Input your dietary details and we'll
+                                    Input your dietary details and we will
                                     generate a custom plan for you.
                                 </p>
                             </div>
