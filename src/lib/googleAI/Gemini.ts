@@ -1,6 +1,7 @@
 import { GoogleGenerativeAI, GenerativeModel } from "@google/generative-ai";
 import { GoogleGenAI } from "./GoogleGenAI";
 import { systemInstruction, generationConfig } from "./config";
+import { DietForm } from "@/components/DietInput";
 
 export class Gemini {
     private static instance: Gemini;
@@ -22,13 +23,28 @@ export class Gemini {
         return this.instance;
     }
 
-    public async generateDiet(data: any) {
+    public async generateDiet(data: DietForm) {
+        const prompt = this.getPrompt(data);
+        const response = await this.generateResponse(prompt);
+        console.log(response);
+    }
+
+    private getPrompt(data: DietForm) {
+        const prompt = `Calories: ${data.calories},
+        Protein: ${data.protein},
+        Carbs: ${data.carbs},
+        Fats: ${data.fats},
+        Total meals : ${data.mealCount}
+        Diet type: ${data.dietType},`;
+        return prompt;
+    }
+
+    private async generateResponse(prompt: string) {
         const chatSession = this.model.startChat({
             generationConfig,
             history: [],
         });
-
-        const result = await chatSession.sendMessage("INSERT_INPUT_HERE");
-        console.log(result.response.text());
+        const result = await chatSession.sendMessage(prompt);
+        return result.response.text();
     }
 }

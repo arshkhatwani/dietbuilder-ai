@@ -5,8 +5,8 @@ import DietInput, { DietForm } from "./DietInput";
 import DietOutput from "./DietOutput";
 
 function DietManager() {
-    const dietSubmit = (data: DietForm) => {
-        console.log("rec data", data);
+    const dietSubmit = async (data: DietForm) => {
+        await generateDiet(data);
     };
     return (
         <>

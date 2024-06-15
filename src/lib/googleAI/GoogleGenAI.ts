@@ -1,12 +1,11 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const apiKey = process.env.NEXT_GOOGLE_AI_API_KEY as string;
-
 export class GoogleGenAI {
     private static instance: GoogleGenAI;
     private genAI: GoogleGenerativeAI;
 
     private constructor() {
+        const apiKey = process.env.NEXT_PUBLIC_GOOGLE_AI_API_KEY as string;
         this.genAI = new GoogleGenerativeAI(apiKey);
     }
 
