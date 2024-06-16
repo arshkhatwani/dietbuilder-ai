@@ -11,13 +11,15 @@ export async function loginWithGoogle() {
 
     const headersList = headers();
     const origin = headersList.get("origin");
+    const redirectTo = `${origin}/auth/callback`;
 
     console.log("Origin:", origin);
+    console.log("Auth callback redirect url:", redirectTo);
 
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-            redirectTo: `${origin}/auth/callback`,
+            redirectTo: redirectTo,
             queryParams: {
                 prompt: "consent",
             },
@@ -29,6 +31,7 @@ export async function loginWithGoogle() {
     }
 
     if (data.url) {
+        console.log("Redirecting to", data.url);
         redirect(data.url);
     }
 
