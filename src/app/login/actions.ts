@@ -12,6 +12,8 @@ export async function loginWithGoogle() {
     const headersList = headers();
     const origin = headersList.get("origin");
 
+    console.log("Origin:", origin);
+
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
