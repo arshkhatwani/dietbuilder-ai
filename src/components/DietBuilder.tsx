@@ -1,11 +1,8 @@
 import DietManager from "./DietManager";
-import SavedDiets from "./SavedDiets";
 
 export default function DietBuilder() {
     return (
-        <div className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[280px_1fr]">
-            <SavedDiets />
-
+        <div className="grid min-h-screen w-full overflow-hidden">
             <div className="flex flex-col">
                 <section className="bg-white dark:bg-gray-950 py-12 md:py-16 lg:py-20">
                     <div className="container px-4 md:px-6">
