@@ -2,27 +2,38 @@
 
 import { generateDiet } from "@/app/diets/actions";
 import { DietResponse } from "@/lib/googleAI/gemini";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import DietInput, { DietForm } from "./DietInput";
 import DietOutput from "./DietOutput";
+import DietLoading from "./DietLoading";
 
 function DietManager() {
+    const [isPending, startTransition] = useTransition();
     const [dietInput, setDietInput] = useState<DietForm>();
     const [dietResponse, setDietResponse] = useState<DietResponse>([]);
 
-    const dietSubmit = async (data: DietForm) => {
-        const res = await generateDiet(data);
-        setDietResponse(res);
-        setDietInput(data);
+    const dietSubmit = (data: DietForm) => {
+        startTransition(async () => {
+            const res = await generateDiet(data);
+            setDietResponse(res);
+            setDietInput(data);
+        });
     };
 
     return (
         <>
             <DietInput dietSubmit={dietSubmit} />
-            {dietResponse.length ? (
-                <DietOutput dietInput={dietInput} dietOutput={dietResponse} />
+            {!isPending ? (
+                dietResponse.length ? (
+                    <DietOutput
+                        dietInput={dietInput}
+                        dietOutput={dietResponse}
+                    />
+                ) : (
+                    <></>
+                )
             ) : (
-                <></>
+                <DietLoading />
             )}
         </>
     );
