@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import FormError from "./utils/FormError";
+import { Textarea } from "./ui/textarea";
 
 const ValidationSchema = z.object({
     calories: z.number().min(100, "Calories must be at least 100"),
@@ -28,6 +29,7 @@ const ValidationSchema = z.object({
         .max(100, "Fats must be at most 100"),
     dietType: z.enum(["vegetarian", "non-vegetarian"]).default("vegetarian"),
     mealCount: z.number(),
+    additionalDetails: z.string().optional(),
 });
 export type DietForm = z.infer<typeof ValidationSchema>;
 
@@ -44,6 +46,7 @@ export default function DietInput({
             fats: 0,
             dietType: "vegetarian",
             mealCount: 1,
+            additionalDetails: "",
         },
         onSubmit: (values) => {
             dietSubmit(values);
@@ -151,6 +154,18 @@ export default function DietInput({
                         />
                         <FormError error={formik.errors.mealCount} />
                     </div>
+                </div>
+                <div className="space-y-2">
+                    <Label htmlFor="additionalDetails">
+                        Additional Details
+                    </Label>
+                    <Textarea
+                        id="additionalDetails"
+                        placeholder="Something to include or exclude from the plan"
+                        value={formik.values.additionalDetails}
+                        onChange={formik.handleChange}
+                    />
+                    <FormError error={formik.errors.additionalDetails} />
                 </div>
                 <div className="flex justify-end gap-2">
                     {/* <Button variant="outline">Regenerate</Button>

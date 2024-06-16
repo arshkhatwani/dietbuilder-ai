@@ -40,12 +40,17 @@ export class Gemini {
     }
 
     private getPrompt(data: DietForm) {
-        const prompt = `Calories: ${data.calories},
+        let prompt = `Calories: ${data.calories},
         Protein: ${data.protein},
         Carbs: ${data.carbs},
         Fats: ${data.fats},
         Total meals : ${data.mealCount}
         Diet type: ${data.dietType},`;
+
+        if (data.additionalDetails) {
+            prompt += `Additional details: ${data.additionalDetails}`;
+        }
+
         return prompt;
     }
 
