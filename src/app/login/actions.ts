@@ -11,7 +11,7 @@ export async function loginWithGoogle() {
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-            redirectTo: "http://localhost:3000/auth/callback",
+            redirectTo: process.env.NEXT_PUBLIC_AUTH_CALLBACK_URL,
             queryParams: {
                 prompt: "consent",
             },
