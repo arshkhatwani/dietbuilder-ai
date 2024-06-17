@@ -8,6 +8,10 @@ const ResponseSchema = z
     .object({
         mealName: z.string(),
         mealDetails: z.string(),
+        calories: z.number(),
+        protein: z.number(),
+        carbs: z.number(),
+        fats: z.number(),
     })
     .array();
 export type DietResponse = z.infer<typeof ResponseSchema>;
