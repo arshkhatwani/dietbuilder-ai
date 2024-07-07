@@ -36,6 +36,14 @@ export default function DietOutput({
                     <div className="font-medium">Meals per Day</div>
                     <div>{dietInput?.mealCount}</div>
                 </div>
+                {dietInput?.additionalDetails ? (
+                    <div>
+                        <div className="font-medium">Additional details</div>
+                        <div>{dietInput?.additionalDetails}</div>
+                    </div>
+                ) : (
+                    <></>
+                )}
             </div>
             <div className="space-y-4">
                 <h4 className="text-lg font-bold">Sample Diet Plan</h4>
