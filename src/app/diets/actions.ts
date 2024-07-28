@@ -1,7 +1,8 @@
 "use server";
 
 import { DietForm } from "@/components/DietInput";
-import { Gemini } from "@/lib/googleAI/gemini";
+import { DietResponse, Gemini } from "@/lib/googleAI/gemini";
+import { createClient } from "@/lib/supabase/server";
 
 export async function generateDiet(data: DietForm) {
     try {
@@ -11,5 +12,22 @@ export async function generateDiet(data: DietForm) {
     } catch (error) {
         console.log(error);
         return [];
+    }
+}
+
+export async function saveDiet(dietInput: DietForm, dietOutput: DietResponse) {
+    try {
+        const supabase = createClient();
+        const { data } = await supabase.auth.getUser();
+        const diet = { input: dietInput, output: dietOutput };
+
+        const res = await supabase.from("userDiets").insert({
+            userId: data.user?.id,
+            diet: diet,
+        });
+
+        return res;
+    } catch (error) {
+        console.log(error);
     }
 }
