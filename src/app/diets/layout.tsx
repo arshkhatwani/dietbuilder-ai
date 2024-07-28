@@ -1,18 +1,13 @@
-import DietBuilder from "@/components/DietBuilder";
-import { NavigationBar } from "@/components/NavigationBar";
 import { createClient } from "@/lib/supabase/server";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { logoutUser } from "../page";
+import { NavigationBar } from "@/components/NavigationBar";
 
-export async function logoutUser() {
-    "use server";
-
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    revalidatePath("/", "layout");
-}
-
-export default async function Home() {
+export default async function Layout({
+    children,
+}: Readonly<{
+    children: React.ReactNode;
+}>) {
     const supabase = createClient();
 
     const { data, error } = await supabase.auth.getUser();
@@ -32,7 +27,7 @@ export default async function Home() {
                 logoutUser={logoutUser}
             />
 
-            <DietBuilder />
+            {children}
         </div>
     );
 }
