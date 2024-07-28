@@ -1,5 +1,8 @@
 import { DietResponse } from "@/lib/googleAI/gemini";
 import { DietForm } from "./DietInput";
+import { Button } from "./ui/button";
+import { saveDiet } from "@/app/diets/actions";
+import { useEffect, useState, useTransition } from "react";
 
 export default function DietOutput({
     dietInput,
@@ -8,6 +11,29 @@ export default function DietOutput({
     dietInput: DietForm | undefined;
     dietOutput: DietResponse;
 }) {
+    const [isPending, startTransition] = useTransition();
+
+    const [status, setStatus] = useState<string>("");
+
+    const dietSave = (dietInput: DietForm, dietOutput: DietResponse) => {
+        startTransition(async () => {
+            const response = await saveDiet(dietInput, dietOutput);
+            if (response?.status === 201) {
+                setStatus("Saved!");
+            }
+        });
+    };
+
+    useEffect(() => {
+        if (isPending) setStatus("Saving...");
+    }, [isPending]);
+
+    useEffect(() => {
+        setStatus("");
+    }, [dietOutput]);
+
+    if (dietInput === undefined) return <></>;
+
     return (
         <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 md:p-8 space-y-4">
             <h3 className="text-xl font-bold">Your Diet Plan</h3>
@@ -73,6 +99,16 @@ export default function DietOutput({
                         </div>
                     </div>
                 ))}
+            </div>
+
+            <div className="flex justify-end gap-2">
+                {status === "" ? (
+                    <Button onClick={() => dietSave(dietInput, dietOutput)}>
+                        Save
+                    </Button>
+                ) : (
+                    <>{status}</>
+                )}
             </div>
         </div>
     );
