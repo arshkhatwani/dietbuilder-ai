@@ -76,7 +76,7 @@ export default function DietOutput({
                 )}
             </div>
             <div className="space-y-4">
-                <h4 className="text-lg font-bold">Sample Diet Plan</h4>
+                <h4 className="text-lg font-bold">Diet Plan</h4>
                 {dietOutput.map((item, idx) => (
                     <div key={idx}>
                         <div className="font-medium">{item.mealName}</div>
