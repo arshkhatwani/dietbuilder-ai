@@ -1,3 +1,5 @@
+"use client";
+
 import { DietResponse } from "@/lib/googleAI/gemini";
 import { DietForm } from "./DietInput";
 import { Button } from "./ui/button";
@@ -7,9 +9,11 @@ import { useEffect, useState, useTransition } from "react";
 export default function DietOutput({
     dietInput,
     dietOutput,
+    readOnly = false,
 }: {
     dietInput: DietForm | undefined;
     dietOutput: DietResponse;
+    readOnly?: boolean;
 }) {
     const [isPending, startTransition] = useTransition();
 
@@ -101,15 +105,19 @@ export default function DietOutput({
                 ))}
             </div>
 
-            <div className="flex justify-end gap-2">
-                {status === "" ? (
-                    <Button onClick={() => dietSave(dietInput, dietOutput)}>
-                        Save
-                    </Button>
-                ) : (
-                    <>{status}</>
-                )}
-            </div>
+            {!readOnly ? (
+                <div className="flex justify-end gap-2">
+                    {status === "" ? (
+                        <Button onClick={() => dietSave(dietInput, dietOutput)}>
+                            Save
+                        </Button>
+                    ) : (
+                        <>{status}</>
+                    )}
+                </div>
+            ) : (
+                <></>
+            )}
         </div>
     );
 }

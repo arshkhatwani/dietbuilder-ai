@@ -4,6 +4,16 @@ import { DietForm } from "@/components/DietInput";
 import { DietResponse, Gemini } from "@/lib/googleAI/gemini";
 import { createClient } from "@/lib/supabase/server";
 
+export type SavedDiet = {
+    id: string;
+    createdAt: string;
+    userId: string;
+    diet: {
+        input: DietForm;
+        output: DietResponse;
+    };
+};
+
 export async function generateDiet(data: DietForm) {
     try {
         const gemini = Gemini.getInstance();
@@ -29,5 +39,22 @@ export async function saveDiet(dietInput: DietForm, dietOutput: DietResponse) {
         return res;
     } catch (error) {
         console.log(error);
+    }
+}
+
+export async function getSavedDiets() {
+    try {
+        const supabase = createClient();
+        const { data } = await supabase.auth.getUser();
+
+        const res = await supabase
+            .from("userDiets")
+            .select()
+            .eq("userId", data.user?.id);
+
+        return res.data as SavedDiet[];
+    } catch (error) {
+        console.log(error);
+        return [];
     }
 }
