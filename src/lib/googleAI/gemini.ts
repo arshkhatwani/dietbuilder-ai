@@ -12,6 +12,7 @@ const ResponseSchema = z
         protein: z.number(),
         carbs: z.number(),
         fats: z.number(),
+        additionalDetails: z.string().optional(),
     })
     .array();
 export type DietResponse = z.infer<typeof ResponseSchema>;

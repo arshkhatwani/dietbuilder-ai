@@ -20,36 +20,44 @@ interface NavigationBarProps {
 export function NavigationBar({ logoutUser, userName }: NavigationBarProps) {
     return (
         <nav className="flex h-16 items-center justify-between bg-gray-900 px-6 text-gray-50 dark:bg-gray-950 mb-3">
-            <Link className="flex items-center gap-2 font-semibold" href="#">
+            <Link className="flex items-center gap-2 font-semibold" href="/">
                 <MountainIcon className="h-6 w-6" />
                 <span className="text-lg">DietBuilder AI</span>
             </Link>
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button
-                        className="rounded-full"
-                        size="icon"
-                        variant="ghost">
-                        <Avatar className="h-8 w-8">
-                            <AvatarImage
-                                alt="@shadcn"
-                                src="/placeholder-user.jpg"
-                            />
-                            <AvatarFallback>SC</AvatarFallback>
-                        </Avatar>
-                        <span className="sr-only">Toggle user menu</span>
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>{userName}</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem
-                        className="text-red-600"
-                        onClick={() => logoutUser()}>
-                        Logout
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
+            <div className="flex flex-row items-center gap-4">
+                <Link
+                    className="flex items-center gap-2 font-medium hover:underline"
+                    href="/diets/saved">
+                    <span className="text-md">Saved Diets</span>
+                </Link>
+
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button
+                            className="rounded-full"
+                            size="icon"
+                            variant="ghost">
+                            <Avatar className="h-8 w-8">
+                                <AvatarImage
+                                    alt="@shadcn"
+                                    src="/placeholder-user.jpg"
+                                />
+                                <AvatarFallback>SC</AvatarFallback>
+                            </Avatar>
+                            <span className="sr-only">Toggle user menu</span>
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>{userName}</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                            className="text-red-600"
+                            onClick={() => logoutUser()}>
+                            Logout
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            </div>
         </nav>
     );
 }
