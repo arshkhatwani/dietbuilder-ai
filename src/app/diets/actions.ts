@@ -3,6 +3,7 @@
 import { DietForm } from "@/components/DietInput";
 import { DietResponse, Gemini } from "@/lib/googleAI/gemini";
 import { createClient } from "@/lib/supabase/server";
+import { revalidatePath } from "next/cache";
 
 export type SavedDiet = {
     id: string;
@@ -35,6 +36,8 @@ export async function saveDiet(dietInput: DietForm, dietOutput: DietResponse) {
             userId: data.user?.id,
             diet: diet,
         });
+
+        revalidatePath("/diets/saved", "page");
 
         return res;
     } catch (error) {

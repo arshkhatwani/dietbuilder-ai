@@ -18,6 +18,7 @@ export default function DietOutput({
     const [isPending, startTransition] = useTransition();
 
     const [status, setStatus] = useState<string>("");
+    const [display, setDisplay] = useState<boolean>(!readOnly);
 
     const dietSave = (dietInput: DietForm, dietOutput: DietResponse) => {
         startTransition(async () => {
@@ -75,36 +76,49 @@ export default function DietOutput({
                     <></>
                 )}
             </div>
-            <div className="space-y-4">
-                <h4 className="text-lg font-bold">Diet Plan</h4>
-                {dietOutput.map((item, idx) => (
-                    <div key={idx}>
-                        <div className="font-medium">{item.mealName}</div>
 
-                        <p className="mb-1">{item.mealDetails}</p>
+            {readOnly ? (
+                <div>
+                    <Button onClick={() => setDisplay((prev) => !prev)}>
+                        {display ? "Hide Diet Plan" : "Show Diet Plan"}
+                    </Button>
+                </div>
+            ) : (
+                <></>
+            )}
+            {display ? (
+                <div className="space-y-4">
+                    <h4 className="text-lg font-bold">Diet Plan</h4>
+                    {dietOutput.map((item, idx) => (
+                        <div key={idx}>
+                            <div className="font-medium">{item.mealName}</div>
 
-                        <div className="grid grid-cols-4 gap-4 bg-gray-200 dark:bg-gray-900 p-1.5 rounded-md">
-                            <div>
-                                <div className="font-medium">Calories</div>
-                                <div>{item.calories}</div>
-                            </div>
-                            <div>
-                                <div className="font-medium">Protein</div>
-                                <div>{item.protein}g</div>
-                            </div>
-                            <div>
-                                <div className="font-medium">Carbs</div>
-                                <div>{item.carbs}g</div>
-                            </div>
-                            <div>
-                                <div className="font-medium">Fats</div>
-                                <div>{item.fats}g</div>
+                            <p className="mb-1">{item.mealDetails}</p>
+
+                            <div className="grid grid-cols-4 gap-4 bg-gray-200 dark:bg-gray-900 p-1.5 rounded-md">
+                                <div>
+                                    <div className="font-medium">Calories</div>
+                                    <div>{item.calories}</div>
+                                </div>
+                                <div>
+                                    <div className="font-medium">Protein</div>
+                                    <div>{item.protein}g</div>
+                                </div>
+                                <div>
+                                    <div className="font-medium">Carbs</div>
+                                    <div>{item.carbs}g</div>
+                                </div>
+                                <div>
+                                    <div className="font-medium">Fats</div>
+                                    <div>{item.fats}g</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
-            </div>
-
+                    ))}
+                </div>
+            ) : (
+                <></>
+            )}
             {!readOnly ? (
                 <div className="flex justify-end gap-2">
                     {status === "" ? (
